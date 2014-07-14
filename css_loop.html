@@ -1,0 +1,68 @@
+<!-- 19-APR-2014 -->
+<!-- this code has been taken from http://www.kirupa.com/html5/looping_a_css_transition.htm and I will slowly modify their project into mine -->
+
+<!DOCTYPE html>
+<html>
+  
+<head>
+
+<title>An Interesting Title Goes Here</title>
+<style>
+#main {
+    background-color: #FFF;
+    margin: 30px;
+    margin-top: 10px;
+}
+.inner {
+    position:relative; width:50px; height:50px; background-color:black; 
+}
+.outer {
+  width:auto; overflow:hidden; height:50px;
+  position:absolute;
+  z-index:500;
+}
+</style>
+</head>
+ 
+<body>
+<div id="main">
+  <!-- the divs to be moved around come here -->
+</div>
+ 
+<!--script src="http://www.kirupa.com/html5/examples/js/prefixfree.min.js"></script-->
+<script src="/home/darthdj/darthdj.com/darthdjSite/static/js/jquery-1.10.2.js"></script>
+<script>
+$(document).ready(function() {
+
+    for (i=0; i<4; i++) {
+        var outerElementID = "strip" + i ;
+        var elementID = '#' + outerElementID + " .inner";
+        $("#main").append('<div id="' + outerElementID + '" class="outer"><div class="inner"></div></div>');
+        
+        var element = $(elementID), outerElement = $('#' + outerElementID);
+        var position = 10 + 50*i,
+            width = 50;// 10*(i+1);
+        outerElement.css("position","absolute").css("top", position).css("width", width);
+
+        var speed = 1000; // (i+1)*1000;
+        var initial = -100 + ((i+1)%2)*50; // -100;
+        console.log(initial);
+
+        loop(element, speed, initial);
+    }
+        
+      function loop(element, speed, initial) {
+        // console.log(element);
+        element.css({top: initial});
+        element.animate (
+            { top: '+=150' }, 
+            speed,  'linear', 
+          function() {
+            setTimeout(loop(element, speed, initial), 1);
+          }
+        );
+      }
+ });
+</script>
+</body>
+</html>

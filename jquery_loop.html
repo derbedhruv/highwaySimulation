@@ -1,0 +1,59 @@
+<!-- 19-APR-2014 -->
+<!-- this code has been taken from http://www.kirupa.com/html5/looping_a_css_transition.htm and I will slowly modify their project into mine -->
+
+<!DOCTYPE html>
+<html>
+  
+<head>
+
+<title>An Interesting Title Goes Here</title>
+<style>
+body {
+    background-color: #FFF;
+    margin: 30px;
+    margin-top: 10px;
+}
+#clouds0, #clouds1, #clouds2 {
+  position:absolute;
+  z-index:500;
+  right:0px;
+  width:50px; height:50px; background-color:black;
+}
+#clouds0 { top:10px;}
+#clouds1 {top:100px;}
+#clouds2 {top:200px;}
+</style>
+</head>
+ 
+<body>
+<div id="clouds0"></div>
+<div id="clouds1"></div> 
+<div id="clouds2"></div> 
+ 
+<!--script src="http://www.kirupa.com/html5/examples/js/prefixfree.min.js"></script-->
+<script src="/home/darthdj/darthdj.com/darthdjSite/static/js/jquery-1.10.2.js"></script>
+<script>
+$(document).ready(function() {
+
+    for (i=0; i<3; i++) {
+        var elementID = "#clouds" + i;
+        var element = $(elementID);
+        var speed = (i+1)*1000;
+        loop(element, speed);
+    }
+        
+      function loop(element, speed) {
+        // console.log(element);
+        element.css({right:0});
+        element.animate (
+            { right: '+=700' }, 
+            speed,  'linear', 
+          function() {
+            setTimeout(loop(element, speed), 1);
+          }
+        );
+      }
+ });
+</script>
+</body>
+</html>
